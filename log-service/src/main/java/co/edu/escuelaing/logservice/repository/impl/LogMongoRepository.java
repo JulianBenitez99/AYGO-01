@@ -20,11 +20,11 @@ import static com.mongodb.client.model.Sorts.descending;
  */
 public class LogMongoRepository implements ILogRepository {
 
-    private static String MONGO_DB = "logs";
+    private static final String MONGO_DB = "logs";
 
-    private static String MONGO_COLLECTION = "logs";
+    private static final String MONGO_COLLECTION = "logs";
 
-    private MongoCollection<Document> logMongoCollection;
+    private final MongoCollection<Document> logMongoCollection;
 
     public LogMongoRepository() {
         MongoClient mongoClient = MongoClients.create(Config.getMongoClientSettings());

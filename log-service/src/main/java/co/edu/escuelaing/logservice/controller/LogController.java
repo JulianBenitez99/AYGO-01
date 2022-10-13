@@ -11,9 +11,9 @@ import static spark.Spark.halt;
 
 public class LogController {
 
-    private ILogService logService;
+    private final ILogService logService;
 
-    private static String TYPE_JSON = "application/json";
+    private static final String TYPE_JSON = "application/json";
 
     public LogController(ILogService logService) {
         this.logService = logService;
