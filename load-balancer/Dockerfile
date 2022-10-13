@@ -7,4 +7,4 @@ ENV SERVERS http://log-service-1:6000,http://log-service-2:6000,http://log-servi
 COPY /target/classes /usrapp/bin/classes
 COPY /target/dependency /usrapp/bin/dependency
 
-CMD ["java","-cp","./classes:./dependency/*","co.edu.escuelaing.app.SparkLBWebServer"]
+CMD ["java","-cp","./classes:./dependency/*","co.edu.escuelaing.app.SparkLBWebApp"]
