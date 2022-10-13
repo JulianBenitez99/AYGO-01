@@ -8,7 +8,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class LogMongoRepository implements ILogRepository {
     public void saveLog(Log log) {
         Document document = new Document()
                 .append("msg", log.getMessage())
-                .append("date", log.getEventDate().toString());
+                .append("date", log.getEventDate());
         logMongoCollection.insertOne(document);
     }
 
@@ -50,7 +49,7 @@ public class LogMongoRepository implements ILogRepository {
                 .limit(n)
                 .into(logsDocuments);
         return logsDocuments.stream()
-                .map(d -> new Log(d.getString("msg"), LocalDateTime.parse(d.getString("date"))))
+                .map(d -> new Log(d.getString("msg"), d.getString("date")))
                 .collect(Collectors.toList());
     }
 }

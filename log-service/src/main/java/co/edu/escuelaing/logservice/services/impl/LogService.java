@@ -19,7 +19,7 @@ public class LogService implements ILogService {
 
     @Override
     public List<Log> saveAndList(String msg) {
-        Log log = new Log(msg, LocalDateTime.now());
+        Log log = new Log(msg, LocalDateTime.now().toString());
         logRepository.saveLog(log);
         return logRepository.getLogs(LIMIT);
     }

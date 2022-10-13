@@ -1,6 +1,5 @@
 package co.edu.escuelaing.logservice.entities;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -8,9 +7,9 @@ import java.util.Objects;
  */
 public class Log {
     private String message;
-    private LocalDateTime eventDate;
+    private String eventDate;
 
-    public Log(String message, LocalDateTime eventDate) {
+    public Log(String message, String eventDate) {
         this.message = message;
         this.eventDate = eventDate;
     }
@@ -23,11 +22,11 @@ public class Log {
         this.message = message;
     }
 
-    public LocalDateTime getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(LocalDateTime eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 

@@ -31,7 +31,7 @@ public class LogMongoRepositoryIntegrationTest {
         withEnvironmentVariable("MONGO_PORT", String.valueOf(mongoDBContainer.getMappedPort(27017)))
                 .execute(() -> {
                     ILogRepository logRepository = RepositoryFactory.instance.getInstance();
-                    Log log = new Log("test", LocalDateTime.now());
+                    Log log = new Log("test", LocalDateTime.now().toString());
                     logRepository.saveLog(log);
                     assertEquals(logRepository.getLogs(1).get(0), log);
                 });
