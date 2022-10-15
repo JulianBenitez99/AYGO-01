@@ -9,7 +9,7 @@ services:
     ports:
       - "27017:27017"
   log-service-1:
-    image: jbenitezg/aygo1-log-service:1.0
+    image: jbenitezg/aygo1-log-service:1.1
     container_name: log-service-1
     ports:
       - "6001:6001"
@@ -20,7 +20,7 @@ services:
     depends_on:
       - mongo-db
   log-service-2:
-    image: jbenitezg/aygo1-log-service:1.0
+    image: jbenitezg/aygo1-log-service:1.1
     container_name: log-service-2
     ports:
       - "6002:6002"
@@ -31,7 +31,7 @@ services:
     depends_on:
       - mongo-db
   log-service-3:
-    image: jbenitezg/aygo1-log-service:1.0
+    image: jbenitezg/aygo1-log-service:1.1
     container_name: log-service-3
     ports:
       - "6003:6003"
@@ -42,7 +42,7 @@ services:
     depends_on:
       - mongo-db
   load-balancer-app:
-    image: jbenitezg/aygo1-lb-app:1.0
+    image: jbenitezg/aygo1-lb-app:1.1
     container_name: load-balancer-app
     ports:
       - "80:6000"
