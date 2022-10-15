@@ -1,0 +1,67 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class Config {
+  + getServers(): List<String>
+  + getPort(): int
+}
+class ControllerFactory {
+  + getInstance(): LogController
+}
+interface Factory<T> << interface >> {
+  + getInstance(): T
+}
+interface ILogService << interface >> {
+  + saveAndList(String): Log[]
+}
+class JsonUtil {
+  + toJson(Object): String
+  + json(): ResponseTransformer
+}
+class LoadBalancer {
+  + getServer(): String
+}
+class LoadBalancerFactory {
+  + getInstance(): LoadBalancer
+}
+class Log {
+  + getMessage(): String
+  + setEventDate(String): void
+  + getEventDate(): String
+  + toString(): String
+  + hashCode(): int
+  + equals(Object): boolean
+  + setMessage(String): void
+}
+class LogController {
+  + send(Request, Response): Log[]
+}
+class LogService {
+  + saveAndList(String): Log[]
+}
+class RoundRobinLoadBalancer {
+  + getServer(): String
+}
+class ServiceFactory {
+  + getInstance(): ILogService
+}
+class SparkLBWebApp {
+  + main(String[]): void
+}
+
+ControllerFactory       -[#008200,dashed]-^  Factory                
+ControllerFactory       -[#595959,dashed]->  LogController          : "«create»"
+ControllerFactory      "1" *-[#595959,plain]-> "logController\n1" LogController          
+LoadBalancerFactory     -[#008200,dashed]-^  Factory                
+LoadBalancerFactory    "1" *-[#595959,plain]-> "loadBalancer\n1" LoadBalancer           
+LoadBalancerFactory     -[#595959,dashed]->  RoundRobinLoadBalancer : "«create»"
+LogController          "1" *-[#595959,plain]-> "logService\n1" ILogService            
+LogService              -[#008200,dashed]-^  ILogService            
+LogService             "1" *-[#595959,plain]-> "loadBalancer\n1" LoadBalancer           
+RoundRobinLoadBalancer  -[#000082,plain]-^  LoadBalancer           
+ServiceFactory          -[#008200,dashed]-^  Factory                
+ServiceFactory         "1" *-[#595959,plain]-> "logService\n1" ILogService            
+ServiceFactory          -[#595959,dashed]->  LogService             : "«create»"
+@enduml

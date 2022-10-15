@@ -1,0 +1,71 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class Config {
+  + getMongoClientSettings(): MongoClientSettings
+  + getPort(): int
+}
+class ControllerFactory {
+  + getInstance(): LogController
+}
+interface Factory<T> << interface >> {
+  + getInstance(): T
+}
+interface ILogRepository << interface >> {
+  + saveLog(Log): void
+  + getLogs(int): List<Log>
+}
+interface ILogService << interface >> {
+  + saveAndList(String): List<Log>
+}
+class JsonUtil {
+  + toJson(Object): String
+  + json(): ResponseTransformer
+}
+class Log {
+  + setEventDate(String): void
+  + setMessage(String): void
+  + hashCode(): int
+  + getEventDate(): String
+  + equals(Object): boolean
+  + toString(): String
+  + getMessage(): String
+}
+class LogController {
+  + save(Request, Response): List<Log>
+}
+class LogMongoRepository {
+  + getLogs(int): List<Log>
+  + saveLog(Log): void
+}
+class LogService {
+  + saveAndList(String): List<Log>
+}
+class RepositoryFactory {
+  + getInstance(): ILogRepository
+}
+class ServiceFactory {
+  + getInstance(): ILogService
+}
+class SparkWebServer {
+  + main(String[]): void
+}
+
+ControllerFactory   -[#008200,dashed]-^  Factory            
+ControllerFactory  "1" *-[#595959,plain]-> "logController\n1" LogController      
+ControllerFactory   -[#595959,dashed]->  LogController      : "«create»"
+LogController      "1" *-[#595959,plain]-> "logService\n1" ILogService        
+LogMongoRepository  -[#008200,dashed]-^  ILogRepository     
+LogMongoRepository  -[#595959,dashed]->  Log                : "«create»"
+LogService         "1" *-[#595959,plain]-> "logRepository\n1" ILogRepository     
+LogService          -[#008200,dashed]-^  ILogService        
+LogService          -[#595959,dashed]->  Log                : "«create»"
+RepositoryFactory   -[#008200,dashed]-^  Factory            
+RepositoryFactory  "1" *-[#595959,plain]-> "logRepository\n1" ILogRepository     
+RepositoryFactory   -[#595959,dashed]->  LogMongoRepository : "«create»"
+ServiceFactory      -[#008200,dashed]-^  Factory            
+ServiceFactory     "1" *-[#595959,plain]-> "logService\n1" ILogService        
+ServiceFactory      -[#595959,dashed]->  LogService         : "«create»"
+@enduml
