@@ -1,0 +1,39 @@
+@startuml
+!theme vibrant
+cloud AWS{
+    node SecurityGroup {
+        node EC2 {
+            node Docker {
+                database "MongoDB:27107"
+
+                component "LoadBalancerApp:80"
+                component "LogService:6001"
+                component "LogService:6002"
+                component "LogService:6003"
+
+            }
+        }
+    }
+}
+
+node User{
+    node WebBrowser{
+     component HTMLPlayer
+    }
+}
+
+
+[LoadBalancerApp:80]- HTTP
+[HTMLPlayer] -up-> HTTP
+
+
+[LoadBalancerApp:80] --> [LogService:6001]
+[LoadBalancerApp:80] --> [LogService:6002]
+[LoadBalancerApp:80] --> [LogService:6003]
+
+[LogService:6001] --> [MongoDB:27107]
+[LogService:6002] --> [MongoDB:27107]
+[LogService:6003] --> [MongoDB:27107]
+
+
+@enduml

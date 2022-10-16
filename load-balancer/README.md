@@ -2,6 +2,13 @@
 
 The service is a REST API developed in Spark that can be used to send messages to other servers in a round-robin fashion. 
 
+## Class Diagram
+The Load Balancer App is developed in Java using the micro-framework Spark, it provides a `LoadBalancer` class which is implemented by the Round-Robin style balancer,
+this load balancer is used from the `LogService `class to determine to which server the petition should be forwarded. The controller uses the `LogService` to save and list the messages from the other servers.
+The Load Balancer App also provides a simple web client for the user to interact from the browser.
+
+![](docs/imgs/class-diagram.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing
@@ -111,6 +118,7 @@ The project counts with a test for the `RoundRobinLoadBalancer` class. It can be
 ```
 mvn test
 ```
+
 
 ## Built With
 

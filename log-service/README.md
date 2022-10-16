@@ -2,6 +2,12 @@
 
 The service is a REST API developed in Spark that can be used to log messages to a mongo database.
 
+## Class Diagram
+The Log Service is also developed in Java using the micro-framework Spark, it provides a `LogMongoRepository` used to store and retrieve the messages.
+The `LogService` class uses the interface `ILogRepository` to store and get the messages, and it's used in turn by the `LogController`. This service doesn't provide any web interface.
+
+![](docs/imgs/class-diagram.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing
